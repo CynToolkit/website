@@ -5,7 +5,12 @@
         <div class="flex align-items-center justify-content-between py-3">
           <div class="logo">Cyn</div>
           <nav>
-            <a v-for="item in menuItems" :key="item.label" :href="item.href" class="nav-link">
+            <a
+              v-for="item in menuItems"
+              :key="item.label"
+              :href="item.href"
+              class="nav-link"
+            >
               <i :class="item.icon"></i>
               {{ item.label }}
             </a>
@@ -16,27 +21,53 @@
 
     <section class="hero">
       <div class="container">
-        <div class="grid">
-          <div class="col-12 md:col-6 hero-content">
-            <h1 class="hero-title fade-in">
-              Your Game's Pipeline,
-              <span class="accent">Automated</span>
-            </h1>
-            <p class="hero-description mt-4 fade-in-delay">
-              Design custom workflows to compress assets, package
-              for multiple platforms, and deploy to Steam or
-              itch.io. Streamline your path from code to player,
-              so you can focus more on creating amazing games.
-            </p>
-            <div class="hero-cta fade-in-delay-2">
-              <Button label="Start now" class="p-button-lg primary-btn" icon="pi pi-arrow-right"
-                iconPos="right"></Button>
-              <Button label="Watch Demo" class="p-button-lg p-button-outlined ml-3 primary-btn" icon="pi pi-play"
-                iconPos="left"></Button>
+        <div class="grid hero-grid">
+          <div class="col-12">
+            <div class="hero-content">
+              <div class="hero-text">
+                <h1 class="hero-title fade-in mb-6">
+                  <div>Your Game's Pipeline</div>
+                  <div>
+                    <span>Fully </span><span class="accent">Automated</span>
+                  </div>
+                </h1>
+                <div class="hero-description mt-4 fade-in-delay">
+                  <div class="mb-2">
+                    Design custom workflows to compress assets, package for
+                    multiple platforms, and deploy to Steam or itch.io.
+                  </div>
+                  <div class="">
+                    Streamline your path from code to player, so you can focus
+                    more on creating amazing games.
+                  </div>
+                </div>
+              </div>
+              <div class="hero-animation">
+                <div class="block">
+                  <div class="title">Compress images</div>
+                </div>
+                <div class="block">
+                  <div class="title">Package for desktop</div>
+                </div>
+                <div class="block arriving">
+                  <div class="title">Upload to steam</div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="col-12 md:col-6 hero-image fade-in-delay">
-            <img src="" alt="Cyn Dashboard" class="p-3" />
+            <div class="hero-cta fade-in-delay-2">
+              <Button
+                label="Start now"
+                class="p-button-lg primary-btn"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+              ></Button>
+              <Button
+                label="Watch Demo"
+                class="p-button-lg p-button-outlined ml-3 primary-btn"
+                icon="pi pi-play"
+                iconPos="left"
+              ></Button>
+            </div>
           </div>
         </div>
       </div>
@@ -48,11 +79,17 @@
           Powerful Features
         </h2>
         <div class="grid">
-          <div class="col-12 md:col-4 p-3 fade-in-delay" v-for="(feature, index) in features" :key="feature.title">
-            <div class="feature-card" :class="{
-              'feature-card--in-development':
-                feature.inDevelopment,
-            }">
+          <div
+            class="col-12 md:col-4 p-3 fade-in-delay"
+            v-for="(feature, index) in features"
+            :key="feature.title"
+          >
+            <div
+              class="feature-card"
+              :class="{
+                'feature-card--in-development': feature.inDevelopment,
+              }"
+            >
               <div class="feature-card-icon">
                 <i :class="feature.icon"></i>
               </div>
@@ -69,8 +106,12 @@
         <h2 class="fade-in">
           Ready to revolutionize your game development pipeline?
         </h2>
-        <Button label="Start now" class="p-button-lg mt-3 fade-in-delay primary-btn" icon="pi pi-arrow-right"
-          iconPos="right"></Button>
+        <Button
+          label="Start now"
+          class="p-button-lg mt-3 fade-in-delay primary-btn"
+          icon="pi pi-arrow-right"
+          iconPos="right"
+        ></Button>
       </div>
     </section>
   </div>
@@ -85,7 +126,7 @@ import "primeicons/primeicons.css";
 const menuItems = ref([
   { label: "Home", icon: "pi pi-home", href: "#" },
   { label: "Features", icon: "pi pi-star", href: "#features" },
-  { label: "Documentation", icon: "pi pi-question-circle", href: "/docs" },
+  { label: "Documentation", icon: "pi pi-question-circle", href: "#docs" },
   { label: "Pricing", icon: "pi pi-dollar", href: "#" },
   { label: "Contact", icon: "pi pi-envelope", href: "#" },
 ]);
@@ -128,8 +169,7 @@ const features = ref([
   },
   {
     title: "Secrets support",
-    description:
-      "Share pipelines with others without exposing your secrets.",
+    description: "Share pipelines with others without exposing your secrets.",
     inDevelopment: true,
     icon: "pi pi-key",
   },
@@ -148,7 +188,7 @@ body {
 
 :root {
   --primary-color: #4f46e5;
-  --primary-color_hover: #4f46e51A;
+  --primary-color_hover: #4f46e51a;
   --surface-ground: #f9fafb;
   --surface-section: #ffffff;
   --text-color: #1f2937;
@@ -213,16 +253,35 @@ body {
   padding: 6rem 0;
 }
 
+.hero-grid {
+  justify-content: center;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 .hero-title {
   font-size: 3.5rem;
   font-weight: 700;
   margin: 0;
   line-height: 1.2;
   color: var(--text-color);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
 
   .accent {
     color: var(--primary-color);
+    text-decoration: underline;
   }
+}
+
+.hero-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-description {
@@ -243,6 +302,11 @@ body {
   padding: 4rem 0;
 }
 
+.demo {
+  background-color: var(--surface-section);
+  padding: 4rem 0;
+}
+
 .section-title {
   font-size: 2.5rem;
   color: var(--text-color);
@@ -255,9 +319,7 @@ body {
   padding: 2rem;
   height: 100%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
 
   &:hover {
@@ -346,8 +408,29 @@ body {
     transform: translateY(0);
   }
 }
-</style>
 
+.block {
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  border: 1px solid #1f2937;
+  width: 300px;
+
+  .title {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+  }
+
+  &.arriving {
+
+  }
+}
+</style>
 
 <style>
 body {
