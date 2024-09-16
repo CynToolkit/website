@@ -7,7 +7,7 @@
   >
     <g
       fill="none"
-      stroke="currentColor"
+      :stroke="color"
       stroke-linecap="round"
       stroke-linejoin="round"
       stroke-width="2"
@@ -29,6 +29,13 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+
+const props = defineProps({
+  color: {
+    type: String,
+    default: "#333",
+  },
+});
 
 const $animate = ref<SVGAnimateElement>()
 

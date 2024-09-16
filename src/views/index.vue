@@ -5,118 +5,21 @@
         <div class="flex align-items-center justify-content-between py-3">
           <div class="logo">Cyn</div>
           <nav>
-            <a
+            <RouterLink
               v-for="item in menuItems"
               :key="item.label"
-              :href="item.href"
+              :to="item.to"
               class="nav-link"
             >
               <i :class="item.icon"></i>
               {{ item.label }}
-            </a>
+            </RouterLink>
           </nav>
         </div>
       </div>
     </header>
 
-    <section class="hero">
-      <div class="container">
-        <div class="grid hero-grid">
-          <div class="col-12">
-            <div class="hero-content">
-              <div class="hero-text">
-                <h1 class="hero-title fade-in mb-6">
-                  <div>Your Game's Pipeline</div>
-                  <div>
-                    <span>Fully </span><span class="accent">Automated</span>
-                  </div>
-                </h1>
-                <div class="hero-description mt-4 fade-in-delay">
-                  <div class="mb-2">
-                    Design custom workflows to compress assets, package for
-                    multiple platforms, and deploy to Steam or itch.io.
-                  </div>
-                  <div class="">
-                    Streamline your path from code to player, so you can focus
-                    more on creating amazing games.
-                  </div>
-                </div>
-              </div>
-              <div class="hero-animation">
-                <div class="node" :style="{ animationDelay: '1s' }">
-                  <div class="title">Compress images</div>
-                  <CircleConfirm ref="$firstIcon" class="icon"></CircleConfirm>
-                </div>
-                <div class="node" :style="{ animationDelay: '1.5s' }">
-                  <div class="title">Package for desktop</div>
-                  <CircleConfirm ref="$secondIcon" class="icon"></CircleConfirm>
-                </div>
-                <div class="node" :style="{ animationDelay: '2s' }">
-                  <div class="title">Upload to steam</div>
-                  <CircleConfirm ref="$thirdIcon" class="icon"></CircleConfirm>
-                </div>
-              </div>
-            </div>
-            <div class="hero-cta fade-in-delay-2">
-              <Button
-                label="Start now"
-                class="p-button-lg primary-btn"
-                icon="pi pi-arrow-right"
-                iconPos="right"
-              ></Button>
-              <Button
-                label="Watch Demo"
-                class="p-button-lg p-button-outlined ml-3 primary-btn"
-                icon="pi pi-play"
-                iconPos="left"
-              ></Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="features" id="features">
-      <div class="container">
-        <h2 class="section-title text-center mb-5 fade-in">
-          Powerful Features
-        </h2>
-        <div class="grid">
-          <div
-            class="col-12 md:col-4 p-3 fade-in-delay"
-            v-for="(feature, index) in features"
-            :key="feature.title"
-          >
-            <div
-              class="feature-card"
-              :class="{
-                'feature-card--in-development': feature.inDevelopment,
-              }"
-            >
-              <div class="feature-card-icon">
-                <i :class="feature.icon"></i>
-              </div>
-              <h3>{{ feature.title }}</h3>
-              <p>{{ feature.description }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta">
-      <div class="container text-center">
-        <h2 class="fade-in">
-          Ready to revolutionize your game development pipeline?
-        </h2>
-        <Button
-          label="Start now"
-          class="p-button-lg mt-3 fade-in-delay primary-btn"
-          icon="pi pi-arrow-right"
-          iconPos="right"
-        ></Button>
-      </div>
-    </section>
+    <RouterView></RouterView>
   </div>
 </template>
 
@@ -127,98 +30,16 @@ import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
 import CircleConfirm from "@/components/CircleConfirm.vue";
 import { useTimeAgo } from "@vueuse/core";
+import AnimatedArrow from "@/components/AnimatedArrow.vue";
 
 const menuItems = ref([
-  { label: "Home", icon: "pi pi-home", href: "#" },
-  { label: "Features", icon: "pi pi-star", href: "#features" },
-  { label: "Documentation", icon: "pi pi-question-circle", href: "#docs" },
-  { label: "Pricing", icon: "pi pi-dollar", href: "#" },
-  { label: "Contact", icon: "pi pi-envelope", href: "#" },
+  { label: "Home", icon: "pi pi-home", to: { name: 'Home' } },
+  { label: "Features", icon: "pi pi-star", to: { name: 'Home', hash: "#features" } },
+  { label: "Documentation", icon: "pi pi-question-circle", to: "https://docs.cyn.armaldio.xyz" },
+  { label: "Pricing", icon: "pi pi-dollar", to: { name: 'Home', hash: "#pricing" } },
+  { label: "Download", icon: "pi pi-download", to: { name: 'Download' } },
+  { label: "Contact", icon: "pi pi-envelope", to: { name: 'Contact' } },
 ]);
-
-const features = ref([
-  {
-    title: "Cross-Platform Support",
-    description:
-      "Package your game effortlessly for multiple platforms including Windows, macOS, and Linux.",
-    inDevelopment: false,
-    icon: "pi pi-desktop",
-  },
-  {
-    title: "Streamlined Integrations",
-    description:
-      "Seamlessly integrate with popular platforms like Steam and itch.io for quick deployments.",
-    inDevelopment: false,
-    icon: "pi pi-cog",
-  },
-  {
-    title: "Easy to Use",
-    description:
-      "Intuitive design, so you can automate your pipeline without needing a degree in DevOps.",
-    inDevelopment: false,
-    icon: "pi pi-check-circle",
-  },
-  {
-    title: "Cloud-Powered Workflows",
-    description:
-      "Offload complex builds to the cloud, freeing up your local resources.",
-    inDevelopment: true,
-    icon: "pi pi-cloud",
-  },
-  {
-    title: "Secure Data Storage",
-    description:
-      "Your game pipeline can be stored securely in our cloud infrastructure.",
-    inDevelopment: true,
-    icon: "pi pi-lock",
-  },
-  {
-    title: "Secrets support",
-    description: "Share pipelines with others without exposing your secrets.",
-    inDevelopment: true,
-    icon: "pi pi-key",
-  },
-]);
-
-const start = new Date()
-
-const $firstIcon = ref<InstanceType<typeof CircleConfirm>>()
-const $secondIcon = ref<InstanceType<typeof CircleConfirm>>()
-const $thirdIcon = ref<InstanceType<typeof CircleConfirm>>()
-
-const interval = setInterval(() => {
-  const end = new Date()
-  const time = end.getTime() - start.getTime()
-  console.log('time', time)
-  const value = Math.round((time / 1000))
-
-  console.log('delay.value', value)
-
-  if (value === 3) {
-    if ($firstIcon.value) {
-      console.log('$firstIcon.value', $firstIcon.value)
-      $firstIcon.value.start()
-    }
-  }
-
-  if (value === 4) {
-    if ($secondIcon.value) {
-      console.log('$secondIcon.value', $secondIcon.value)
-      $secondIcon.value.start()
-    }
-  }
-
-  if (value === 5) {
-    if ($thirdIcon.value) {
-      console.log('$thirdIcon.value', $thirdIcon.value)
-      $thirdIcon.value.start()
-    }
-  }
-
-  if (value >= 5) {
-    clearInterval(interval)
-  }
-}, 1000)
 </script>
 
 <style lang="scss">
@@ -258,7 +79,7 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 0 2rem;
 }
@@ -416,8 +237,8 @@ body {
   align-items: center;
   flex-direction: column;
   align-content: space-between;
-  gap: 2.5rem;
-  padding: 32px 0 32px 0;
+  // gap: 2.5rem;
+  padding: 16px 0 48px 0;
 }
 
 @media (max-width: 768px) {
@@ -476,14 +297,20 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   transition: transform 0.3s ease;
   border: 1px solid #1f2937;
   width: 300px;
   height: 100%;
   transform: translateX(50px);
   opacity: 0;
-  animation: slideInFade 0.5s forwards, slideIn 0.5s forwards;
+  box-shadow: 0px 0px 15px -3px rgba(0,0,0,0.1);
+  background: #f5f5f5;
+  border: 1px solid #dfdfdf;
+
+  &.animate-node {
+    animation: slideInFade 0.5s forwards, slideIn 0.5s forwards;
+  }
 
   .title {
     font-size: 1.25rem;
