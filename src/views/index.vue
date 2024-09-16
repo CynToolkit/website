@@ -43,14 +43,17 @@
                 </div>
               </div>
               <div class="hero-animation">
-                <div class="block">
+                <div class="node" :style="{ animationDelay: '1s' }">
                   <div class="title">Compress images</div>
+                  <CircleConfirm ref="$firstIcon" class="icon"></CircleConfirm>
                 </div>
-                <div class="block">
+                <div class="node" :style="{ animationDelay: '1.5s' }">
                   <div class="title">Package for desktop</div>
+                  <CircleConfirm ref="$secondIcon" class="icon"></CircleConfirm>
                 </div>
-                <div class="block arriving">
+                <div class="node" :style="{ animationDelay: '2s' }">
                   <div class="title">Upload to steam</div>
+                  <CircleConfirm ref="$thirdIcon" class="icon"></CircleConfirm>
                 </div>
               </div>
             </div>
@@ -118,10 +121,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import Button from "primevue/button";
 import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
+import CircleConfirm from "@/components/CircleConfirm.vue";
+import { useTimeAgo } from "@vueuse/core";
 
 const menuItems = ref([
   { label: "Home", icon: "pi pi-home", href: "#" },
@@ -174,6 +179,46 @@ const features = ref([
     icon: "pi pi-key",
   },
 ]);
+
+const start = new Date()
+
+const $firstIcon = ref<InstanceType<typeof CircleConfirm>>()
+const $secondIcon = ref<InstanceType<typeof CircleConfirm>>()
+const $thirdIcon = ref<InstanceType<typeof CircleConfirm>>()
+
+const interval = setInterval(() => {
+  const end = new Date()
+  const time = end.getTime() - start.getTime()
+  console.log('time', time)
+  const value = Math.round((time / 1000))
+
+  console.log('delay.value', value)
+
+  if (value === 3) {
+    if ($firstIcon.value) {
+      console.log('$firstIcon.value', $firstIcon.value)
+      $firstIcon.value.start()
+    }
+  }
+
+  if (value === 4) {
+    if ($secondIcon.value) {
+      console.log('$secondIcon.value', $secondIcon.value)
+      $secondIcon.value.start()
+    }
+  }
+
+  if (value === 5) {
+    if ($thirdIcon.value) {
+      console.log('$thirdIcon.value', $thirdIcon.value)
+      $thirdIcon.value.start()
+    }
+  }
+
+  if (value >= 5) {
+    clearInterval(interval)
+  }
+}, 1000)
 </script>
 
 <style lang="scss">
@@ -366,6 +411,15 @@ body {
   }
 }
 
+.hero-animation {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  align-content: space-between;
+  gap: 2.5rem;
+  padding: 32px 0 32px 0;
+}
+
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2.5rem;
@@ -409,25 +463,41 @@ body {
   }
 }
 
-.block {
+@keyframes slideInFade {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.node {
   border-radius: 8px;
   padding: 1rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease;
   border: 1px solid #1f2937;
   width: 300px;
+  height: 100%;
+  transform: translateX(50px);
+  opacity: 0;
+  animation: slideInFade 0.5s forwards, slideIn 0.5s forwards;
 
   .title {
     font-size: 1.25rem;
     color: var(--text-color);
-    margin-bottom: 0.5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  &.arriving {
-
+  .icon {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
   }
 }
 </style>
