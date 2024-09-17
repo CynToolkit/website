@@ -473,6 +473,7 @@ const interval = setInterval(() => {
 
 .features {
   padding: 2rem 0 4rem;
+  background: #fff;
 }
 
 .pricing {
