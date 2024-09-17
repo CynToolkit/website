@@ -17,7 +17,7 @@
       <DownloadCard os="Linux" :options="linuxOptions" />
     </div>
     <div class="flex flex-column text-center justify-content-center mt-8">
-      <p>Looking for older versions?</p>
+      <p>Looking for beta or older versions?</p>
       <a href="https://github.com/CynToolkit/cyn/releases"
         >Check the releases page</a
       >
@@ -32,7 +32,7 @@ import { isAfter } from "date-fns";
 
 
 const macOptions = computed(() => ([
-    { label: ".dmg (arm64)", value: release.value?.assets.find(asset => asset.name.includes("arm64.dmg"))?.browser_download_url },
+    { label: ".dmg", value: release.value?.assets.find(asset => asset.name.includes("arm64.dmg"))?.browser_download_url },
     { label: ".zip", value: release.value?.assets.find(asset => asset.name.includes("darwin-arm64"))?.browser_download_url }
 ]));
 

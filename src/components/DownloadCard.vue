@@ -4,11 +4,6 @@
       <span class="text-4xl mr-2">
         <Icon height="22" :icon="getOsIcon(os)" /></span>
       <h2 class="text-2xl font-semibold">{{ os }}</h2>
-      <span
-        v-if="os === 'Windows'"
-        class="ml-2 px-2 py-1 bg-yellow-100 text-yellow-900 text-xs border-round"
-        >Unsigned</span
-      >
     </div>
     <div
       v-for="option in options"
