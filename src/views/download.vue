@@ -1,86 +1,138 @@
 <template>
-  <div class="flex flex-col items-center p-8 bg-gray-100 min-h-screen">
-    <img
-      alt="Dataflare Logo"
-      class="w-16 h-16 mb-4"
-    />
-    <h1 class="text-2xl font-bold mb-2">Download Dataflare</h1>
-    <p class="text-gray-600 mb-8">
+  <div class="flex flex-column align-items-center p-8 surface-100">
+    <!-- <img
+      alt="Cyn Logo"
+      class="w-4rem h-4rem mb-4"
+    /> -->
+    <h1 class="text-4xl font-bold mb-2">Download Cyn</h1>
+    <p class="text-color-secondary mb-8">
       Choose the version that suits your operating system (OS) and CPU
       architecture
     </p>
-
-    <div class="flex flex-wrap justify-center gap-8">
-      <DownloadCard
-        os="macOS"
-        :options="macOptions"
-        brewCommand="brew install dataflare"
-      />
-      <DownloadCard
-        os="Windows"
-        :options="windowsOptions"
-        wingetCommand="winget install Dataflare.Dataflare"
-      />
+    <div class="flex flex-wrap justify-content-center gap-4">
+      <DownloadCard os="macOS" :options="macOptions" />
+      <DownloadCard os="Windows" :options="windowsOptions" />
       <DownloadCard os="Linux" :options="linuxOptions" />
+    </div>
+    <div class="flex flex-column text-center justify-content-center mt-8">
+      <p>Looking for older versions?</p>
+      <a href="https://github.com/CynToolkit/cyn/releases"
+        >Check the releases page</a
+      >
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineComponent, ref } from "vue";
+import { computed, ref } from "vue";
+import DownloadCard from "@/components/DownloadCard.vue";
+import { isAfter } from "date-fns";
 
-const macOptions = ref([
-  { label: ".dmg (Apple Silicon)", value: "apple-silicon" },
-  { label: ".dmg (Intel)", value: "intel" },
-]);
 
-const windowsOptions = ref([{ label: ".exe (x86_64)", value: "x86_64" }]);
+const macOptions = computed(() => ([
+    { label: ".dmg (arm64)", value: release.value?.assets.find(asset => asset.name.includes("arm64.dmg"))?.browser_download_url },
+    { label: ".zip", value: release.value?.assets.find(asset => asset.name.includes("darwin-arm64"))?.browser_download_url }
+]));
 
-const linuxOptions = ref([
-  { label: ".AppImage (x86_64)", value: "x86_64" },
-  { label: ".AppImage (AArch64)", value: "aarch64" },
-]);
+const windowsOptions = computed(() => ([
+    { label: ".exe", value: release.value?.assets.find(asset => asset.name.includes(".Setup.exe"))?.browser_download_url },
+    { label: ".zip", value: release.value?.assets.find(asset => asset.name.includes("win32-x64"))?.browser_download_url }
+]));
 
-const DownloadCard = defineComponent({
-  props: {
-    os: String,
-    options: Array,
-    brewCommand: String,
-    wingetCommand: String,
-  },
-  setup(props) {
-    const getOsIcon = (os: string) => {
-      switch (os) {
-        case "macOS":
-          return "🍎";
-        case "Windows":
-          return "🪟";
-        case "Linux":
-          return "🐧";
-        default:
-          return "";
-      }
-    };
+const linuxOptions = computed(() => ([
+  { label: ".zip", value: release.value?.assets.find(asset => asset.name.includes("linux-x64"))?.browser_download_url },
+]))
 
-    return { getOsIcon };
-  },
-  template: `
-    <div class="bg-white rounded-lg shadow-md p-6 w-80">
-      <div class="flex items-center mb-4">
-        <span class="text-2xl mr-2">{{ getOsIcon(os) }}</span>
-        <h2 class="text-xl font-semibold">{{ os }}</h2>
-        <span v-if="os === 'Windows'" class="ml-2 px-2 py-1 bg-yellow-200 text-yellow-800 text-xs rounded">Unsigned</span>
-      </div>
-      <div v-if="brewCommand || wingetCommand" class="bg-gray-100 p-2 rounded mb-4 font-mono text-sm">
-        {{ brewCommand || wingetCommand }}
-      </div>
-      <div v-for="option in options" :key="option.value" class="flex justify-between items-center mb-2">
-        <span>{{ option.label }}</span>
-        <button class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition">↓</button>
-      </div>
-    </div>
-  `,
-});
+export interface Release {
+  url: string
+  assets_url: string
+  upload_url: string
+  html_url: string
+  id: number
+  author: Author
+  node_id: string
+  tag_name: string
+  target_commitish: string
+  name: string
+  draft: boolean
+  prerelease: boolean
+  created_at: string
+  published_at: string
+  assets: Asset[]
+  tarball_url: string
+  zipball_url: string
+  body: string
+}
+
+export interface Author {
+  login: string
+  id: number
+  node_id: string
+  avatar_url: string
+  gravatar_id: string
+  url: string
+  html_url: string
+  followers_url: string
+  following_url: string
+  gists_url: string
+  starred_url: string
+  subscriptions_url: string
+  organizations_url: string
+  repos_url: string
+  events_url: string
+  received_events_url: string
+  type: string
+  site_admin: boolean
+}
+
+export interface Asset {
+  url: string
+  id: number
+  node_id: string
+  name: string
+  label: string
+  uploader: Uploader
+  content_type: string
+  state: string
+  size: number
+  download_count: number
+  created_at: string
+  updated_at: string
+  browser_download_url: string
+}
+
+export interface Uploader {
+  login: string
+  id: number
+  node_id: string
+  avatar_url: string
+  gravatar_id: string
+  url: string
+  html_url: string
+  followers_url: string
+  following_url: string
+  gists_url: string
+  starred_url: string
+  subscriptions_url: string
+  organizations_url: string
+  repos_url: string
+  events_url: string
+  received_events_url: string
+  type: string
+  site_admin: boolean
+}
+
+const release = ref<Release>();
+
+
+fetch("https://api.github.com/repos/CynToolkit/cyn/releases/latest", {
+    headers: {
+        "Accept": "application/vnd.github+json",
+    }
+})
+    .then(response => response.json())
+    .then((data: Release) => {
+        console.log(data)
+        release.value = data
+    })
 </script>
-
-<style lang="scss" scoped></style>

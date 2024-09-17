@@ -61,12 +61,12 @@
                 iconPos="right"
                 :to="{ name: 'Download' }"
               ></Button>
-              <Button
+              <!-- <Button
                 label="Watch Demo"
                 class="p-button-lg p-button-outlined ml-3 primary-btn"
                 icon="pi pi-play"
                 iconPos="left"
-              ></Button>
+              ></Button> -->
             </div>
           </div>
         </div>
@@ -117,23 +117,42 @@
                   <span class="price-text">${{ tier.price }}</span
                   >/{{ tier.unit }}
                 </p>
-                <ul class="features">
-                  <li
-                    v-for="feature in tier.features"
-                    :key="feature.name"
-                    class="feature"
+                <div class="get-started-button">
+                  <Button
+                    as="router-link"
+                    :to="{ name: 'Download' }"
+                    class="p-button-lg primary-btn"
+                    size="large"
+                    fluid
+                    v-if="tier.price === 0 || tier.price > 0"
+                    >Download now</Button
                   >
-                    <span v-if="feature.type === 'benefit'">
-                      <i class="pi pi-check-circle green icon"></i>
-                    </span>
-                    <span v-else-if="feature.type === 'limitation'">
-                      <i class="pi pi-times-circle red icon"></i>
-                    </span>
-                    <span class="text">{{ feature.name }}</span>
-                  </li>
-                </ul>
-                <button>Choose Plan</button>
+                  <Button
+                    class="p-button-lg primary-btn"
+                    size="large"
+                    fluid
+                    v-else
+                  >
+                    Choose Plan
+                  </Button
+                  >
+                </div>
               </div>
+              <ul class="features">
+                <li
+                  v-for="feature in tier.features"
+                  :key="feature.name"
+                  class="feature"
+                >
+                  <span v-if="feature.type === 'benefit'">
+                    <i class="pi pi-check-circle green icon"></i>
+                  </span>
+                  <span v-else-if="feature.type === 'limitation'">
+                    <i class="pi pi-times-circle red icon"></i>
+                  </span>
+                  <span class="text">{{ feature.name }}</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -243,11 +262,18 @@ const features = ref([
     icon: "pi pi-desktop",
   },
   {
-    title: "Streamlined Integrations",
+    title: "Deploy anywhere",
     description:
-      "Seamlessly integrate with popular platforms like Steam and itch.io for quick deployments.",
+      "Upload your game to platforms like Steam and itch.io for quick deployments.",
     inDevelopment: false,
-    icon: "pi pi-cog",
+    icon: "pi pi-cloud",
+  },
+  {
+    title: "Integrate with anything",
+    description:
+      "Seamlessly integrate with popular game editors like Construct 3 and Godot.",
+    inDevelopment: false,
+    icon: "pi pi-code",
   },
   {
     title: "Easy to Use",
@@ -255,6 +281,13 @@ const features = ref([
       "Intuitive design, so you can automate your pipeline without needing a degree in DevOps.",
     inDevelopment: false,
     icon: "pi pi-check-circle",
+  },
+  {
+    title: "Custom Script Integration",
+    description:
+      "Incorporate custom scripts and tools into your automation pipelines.",
+    inDevelopment: false,
+    icon: "pi pi-code",
   },
   {
     title: "Cloud-Powered Workflows",
@@ -273,6 +306,12 @@ const features = ref([
   {
     title: "Secrets support",
     description: "Share pipelines with others without exposing your secrets.",
+    inDevelopment: true,
+    icon: "pi pi-key",
+  },
+  {
+    title: "Analytics",
+    description: "Get insights into your pipeline's performance.",
     inDevelopment: true,
     icon: "pi pi-key",
   },
@@ -351,25 +390,7 @@ const interval = setInterval(() => {
 }, 500);
 </script>
 
-<style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
-
-body {
-  font-family: "Inter", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-  color: var(--text-color);
-}
-
-:root {
-  --primary-color: #4f46e5;
-  --primary-color_hover: #4f46e51a;
-  --surface-ground: #f9fafb;
-  --surface-section: #ffffff;
-  --text-color: #1f2937;
-  --surface-card: #ffffff;
-}
-
+<style lang="scss" scoped>
 .primary-btn {
   text-decoration: none;
 }
@@ -391,45 +412,9 @@ body {
   }
 }
 
-.container {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.header {
-  background-color: var(--surface-card);
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--primary-color);
-}
-
-.nav-link {
-  color: var(--text-color);
-  text-decoration: none;
-  margin-left: 1.5rem;
-  font-weight: 500;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: var(--primary-color);
-  }
-
-  i {
-    margin-right: 0.5rem;
-  }
-}
-
 .hero {
   background-color: var(--surface-ground);
-  padding: 6rem 0;
+  padding: 4rem 0;
 }
 
 .hero-grid {
@@ -476,12 +461,24 @@ body {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 1rem;
+
+  @media (min-width: 640px) {
+    padding: 0 2rem;
+  }
+}
+
 .features {
-  background-color: var(--surface-section);
-  padding: 4rem 0;
+  padding: 2rem 0 4rem;
 }
 
 .pricing {
+  padding: 2rem 0 4rem;
+  background: var(--surface-ground);
+
   .pricing-notes {
     text-align: center;
 
@@ -504,13 +501,14 @@ body {
 }
 
 .feature-card {
-  background-color: var(--surface-card);
-  border-radius: 8px;
-  padding: 2rem;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 1rem 2rem;
   height: 100%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
+  border: 1px solid #f1f1f1;
 
   &:hover {
     transform: translateY(-5px);
@@ -545,7 +543,7 @@ body {
 }
 
 .cta {
-  background-color: var(--surface-ground);
+  background-color: #fff;
   padding: 4rem 0;
   text-align: center;
 
@@ -657,9 +655,23 @@ body {
   justify-content: center;
   gap: 1rem;
   width: 100%;
+  flex-wrap: wrap;
+
+  .feature-card {
+    height: auto;
+  }
+
+  .features {
+    padding: 1.5rem;
+    background-color: var(--surface-ground);
+
+    li {
+      padding: 0.25rem 0;
+    }
+  }
 
   .tier {
-    width: calc(100% / 3);
+    width: calc(1200px / 3);
     padding: 20px;
     border-radius: 5px;
   }
@@ -680,29 +692,38 @@ body {
   .hero-animation {
     display: none;
   }
+
+//   .tiers {
+//     flex-direction: column;
+//     justify-content: center;
+//   }
 }
 
 .red {
-    color: red;
+  color: red;
 }
 
 .green {
-    color: green;
+  color: green;
 }
 
 .features {
-    list-style: none;
+  list-style: none;
 
-    .feature {
-
-        .icon {
-            margin-right: 0.5rem;
-        }
-
-        .text {
-            font-size: 0.9rem;
-        }
+  .feature {
+    .icon {
+      margin-right: 0.5rem;
     }
+
+    .text {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.get-started-button {
+  text-align: center;
+  margin-top: 1rem;
 }
 </style>
 

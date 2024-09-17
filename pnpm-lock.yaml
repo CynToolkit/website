@@ -14,6 +14,9 @@ importers:
       '@vueuse/core':
         specifier: ^11.0.3
         version: 11.0.3(vue@3.5.4(typescript@5.4.5))
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
       pinia:
         specifier: ^2.1.7
         version: 2.2.2(typescript@5.4.5)(vue@3.5.4(typescript@5.4.5))
@@ -36,6 +39,12 @@ importers:
       '@iconify-json/line-md':
         specifier: ^1.2.1
         version: 1.2.1
+      '@iconify-json/simple-icons':
+        specifier: ^1.2.3
+        version: 1.2.3
+      '@iconify/vue':
+        specifier: ^4.1.2
+        version: 4.1.2(vue@3.5.4(typescript@5.4.5))
       '@playwright/test':
         specifier: ^1.44.1
         version: 1.47.0
@@ -382,11 +391,19 @@ packages:
   '@iconify-json/line-md@1.2.1':
     resolution: {integrity: sha512-XMga2q5PiQ2LrU7K06hfqSYOA+7UFhRwhl52xvPCPAiLmtdfWBeX38nA46mcaLj7sdNo+DK+BJy9iTrzQ0ewNw==}
 
+  '@iconify-json/simple-icons@1.2.3':
+    resolution: {integrity: sha512-KZpqyPkDdyAvrpMz9/FYovwFsr3xrHf9esJeBng3iqNInhuZhF33XO1k6Yf8g2p10ynUW7AYEiGJkYzDi4DENQ==}
+
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
   '@iconify/utils@2.1.33':
     resolution: {integrity: sha512-jP9h6v/g0BIZx0p7XGJJVtkVnydtbgTgt9mVNcGDYwaa7UhdHdI9dvoq+gKj9sijMSJKxUPEG2JyjsgXjxL7Kw==}
+
+  '@iconify/vue@4.1.2':
+    resolution: {integrity: sha512-CQnYqLiQD5LOAaXhBrmj1mdL2/NCJvwcC4jtW2Z8ukhThiFkLDkutarTOV2trfc9EXqUqRs0KqXOL9pZ/IyysA==}
+    peerDependencies:
+      vue: '>=3'
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -827,6 +844,9 @@ packages:
   data-urls@5.0.0:
     resolution: {integrity: sha512-ZYP5VBHshaDAiVZxjbRVcFJpc+4xGgT0bK3vzy1HLN8jTO975HEbuYzZJcHoQEY5K1a0z8YayJkyVETa08eNTg==}
     engines: {node: '>=18'}
+
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   de-indent@1.0.2:
     resolution: {integrity: sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==}
@@ -2009,6 +2029,10 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
+  '@iconify-json/simple-icons@1.2.3':
+    dependencies:
+      '@iconify/types': 2.0.0
+
   '@iconify/types@2.0.0': {}
 
   '@iconify/utils@2.1.33':
@@ -2022,6 +2046,11 @@ snapshots:
       mlly: 1.7.1
     transitivePeerDependencies:
       - supports-color
+
+  '@iconify/vue@4.1.2(vue@3.5.4(typescript@5.4.5))':
+    dependencies:
+      '@iconify/types': 2.0.0
+      vue: 3.5.4(typescript@5.4.5)
 
   '@isaacs/cliui@8.0.2':
     dependencies:
@@ -2514,6 +2543,8 @@ snapshots:
     dependencies:
       whatwg-mimetype: 4.0.0
       whatwg-url: 14.0.0
+
+  date-fns@4.1.0: {}
 
   de-indent@1.0.2: {}
 
