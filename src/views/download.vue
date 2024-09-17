@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-column align-items-center p-8 surface-100">
+  <div class="flex flex-column align-items-center p-8">
     <!-- <img
       alt="Cyn Logo"
       class="w-4rem h-4rem mb-4"
