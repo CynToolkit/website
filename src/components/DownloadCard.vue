@@ -16,7 +16,7 @@
       class="flex justify-content-between align-items-center mb-2"
     >
       <span>{{ option.label }}</span>
-      <Button as="a" :href="option.value" icon="pi pi-download" text rounded class="p-button-sm primary-btn" />
+      <Button :disabled="!option.value" as="a" :href="option.value" icon="pi pi-download" text rounded class="p-button-sm primary-btn" />
     </div>
   </div>
 </template>
@@ -54,5 +54,9 @@ const getOsIcon = (os) => {
   position: relative;
   border: 1px solid #f1f1f1;
   width: 300px;
+}
+
+a {
+  text-decoration: none;
 }
 </style>

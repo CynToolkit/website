@@ -4,7 +4,9 @@
       alt="Cyn Logo"
       class="w-4rem h-4rem mb-4"
     /> -->
-    <h1 class="text-4xl font-bold mb-2">Download Cyn</h1>
+    <h1 class="text-4xl font-bold mb-2">Download Cyn
+      <span v-if="release">({{ release?.tag_name }})</span>
+    </h1>
     <p class="text-color-secondary mb-8">
       Choose the version that suits your operating system (OS) and CPU
       architecture
