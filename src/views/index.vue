@@ -4,21 +4,26 @@
       <div class="container">
         <div class="flex align-items-center justify-content-between py-3">
           <div class="logo">
-            <RouterLink class="nav-link-logo" :to="{ name: 'Home' }"> Cyn </RouterLink>
+            <RouterLink class="nav-link-logo" :to="{ name: 'Home' }">
+              Cyn
+            </RouterLink>
           </div>
           <nav class="hidden lg:flex">
-            <RouterLink
+            <component
               v-for="item in menuItems"
               :key="item.label"
-              :to="item.to"
+              :is="item.external ? 'a' : 'RouterLink'"
+              :to="!item.external ? item.to : undefined"
+              :href="item.external ? item.to : undefined"
               class="nav-link"
-              :as="item.external ? 'a' : 'RouterLink'"
-              :target="item.external ? '_blank' : ''"
+              :class="{ 'icon-only': item.iconOnly }"
+              :target="item.external ? '_blank' : undefined"
+              :rel="item.external ? 'noopener noreferrer' : undefined"
               :disabled="item.disabled"
             >
               <i :class="item.icon"></i>
-              {{ item.label }}
-            </RouterLink>
+              <span v-if="!item.iconOnly">{{ item.label }}</span>
+            </component>
           </nav>
           <Button
             icon="pi pi-bars"
@@ -29,19 +34,21 @@
       </div>
     </header>
     <div v-if="mobileMenuOpen" class="mobile-menu lg:hidden">
-      <RouterLink
+      <component
         v-for="item in menuItems"
         :key="item.label"
-        :to="item.to"
-        :as="item.external ? 'a' : 'RouterLink'"
-        :target="item.external ? '_blank' : ''"
+        :is="item.external ? 'a' : 'RouterLink'"
+        :to="!item.external ? item.to : undefined"
+        :href="item.external ? item.to : undefined"
+        :target="item.external ? '_blank' : undefined"
+        :rel="item.external ? 'noopener noreferrer' : undefined"
         :disabled="item.disabled"
         class="mobile-nav-link"
         @click="closeMobileMenu"
       >
         <i :class="item.icon"></i>
         {{ item.label }}
-      </RouterLink>
+      </component>
     </div>
     <RouterView></RouterView>
   </div>
@@ -75,12 +82,36 @@ const menuItems = ref([
     external: true,
     disabled: true,
   },
+  {
+    label: "Support",
+    icon: "pi pi-heart",
+    to: "//polar.sh/cyn",
+    external: true,
+    disabled: false,
+  },
+  {
+    label: "Github",
+    icon: "pi pi-github",
+    to: "//github.com/CynToolkit/cyn",
+    external: true,
+    disabled: false,
+    iconOnly: true,
+  },
+  {
+    label: "Discord",
+    icon: "pi pi-discord",
+    to: "//discord.gg/MzNw26cBb5",
+    external: true,
+    disabled: false,
+    iconOnly: true,
+  },
 
   {
     label: "Contact",
     icon: "pi pi-envelope",
     to: { name: "Contact" },
     disabled: true,
+    iconOnly: true,
   },
 ]);
 
@@ -134,6 +165,8 @@ const closeMobileMenu = () => {
   margin-left: 1.5rem;
   font-weight: 500;
   transition: color 0.3s ease;
+  cursor: pointer;
+
   &:hover {
     color: var(--primary-color);
   }
@@ -141,6 +174,15 @@ const closeMobileMenu = () => {
     margin-right: 0.5rem;
   }
 }
+
+.icon-only {
+  margin-left: 2rem;
+}
+
+.icon-only ~ .icon-only {
+  margin-left: 0.5rem;
+}
+
 .mobile-menu {
   background-color: var(--surface-card);
   position: fixed;
@@ -174,7 +216,7 @@ a[disabled="true"] {
 </style>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
 
 body {
   font-family: "Inter", sans-serif;
@@ -182,7 +224,7 @@ body {
   font-style: normal;
   color: var(--text-color);
   margin: 0;
-}
+} */
 
 :root {
   --primary-color: #4f46e5;
