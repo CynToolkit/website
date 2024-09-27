@@ -220,7 +220,7 @@ const tiers = ref<Tier[]>([
   },
   {
     name: "Individual",
-    price: 10,
+    price: 0,
     unit: "month",
     features: [
       { name: "Actions from all integrations", type: "benefit" },
@@ -236,8 +236,8 @@ const tiers = ref<Tier[]>([
   },
   {
     name: "Team",
-    price: 50,
-    unit: "month/user",
+    price: 0,
+    unit: "month",
     features: [
       { name: "Actions from all integrations", type: "benefit" },
       { name: "Unlimited pipelines (cloud & local)", type: "benefit" },
