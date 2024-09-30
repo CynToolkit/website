@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-column align-items-center p-8">
     <!-- <img
-      alt="Cyn Logo"
+      alt="Pipelab Logo"
       class="w-4rem h-4rem mb-4"
     /> -->
-    <h1 class="text-4xl font-bold mb-2">Download Cyn
+    <h1 class="text-4xl font-bold mb-2">Download Pipelab
       <span v-if="release">({{ release?.tag_name }})</span>
     </h1>
     <p class="text-color-secondary mb-8">

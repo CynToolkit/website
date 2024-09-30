@@ -5,7 +5,7 @@
         <div class="flex align-items-center justify-content-between py-3">
           <div class="logo">
             <RouterLink class="nav-link-logo" :to="{ name: 'Home' }">
-              Cyn
+              Pipelab
             </RouterLink>
           </div>
           <nav class="hidden lg:flex">
@@ -78,9 +78,9 @@ const menuItems = ref([
   {
     label: "Documentation",
     icon: "pi pi-question-circle",
-    to: "//docs.cyn.armaldio.xyz",
+    to: "//docs.pipelab.app",
     external: true,
-    disabled: true,
+    disabled: false,
   },
   {
     label: "Support",
