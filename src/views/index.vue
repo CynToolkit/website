@@ -85,7 +85,7 @@ const menuItems = ref([
   {
     label: "Support",
     icon: "pi pi-heart",
-    to: "//polar.sh/cyn",
+    to: "//polar.sh/pipelab",
     external: true,
     disabled: false,
   },
