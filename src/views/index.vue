@@ -5,7 +5,7 @@
         <div class="flex align-items-center justify-content-between py-3">
           <div class="logo">
             <RouterLink class="nav-link-logo" :to="{ name: 'Home' }">
-              Pipelab
+              <img height="48" src="/banner.png" alt="Pipelab" class="logo-img" />
             </RouterLink>
           </div>
           <nav class="hidden lg:flex">
@@ -92,7 +92,7 @@ const menuItems = ref([
   {
     label: "Github",
     icon: "pi pi-github",
-    to: "//github.com/CynToolkit/cyn",
+    to: "//github.com/CynToolkit/pipelab",
     external: true,
     disabled: false,
     iconOnly: true,
