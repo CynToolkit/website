@@ -21,7 +21,8 @@
               :rel="item.external ? 'noopener noreferrer' : undefined"
               :disabled="item.disabled"
             >
-              <i :class="item.icon"></i>
+              <i v-if="typeof item.icon === 'string'" :class="item.icon"></i>
+              <component v-else :is="item.icon"></component>
               <span v-if="!item.iconOnly">{{ item.label }}</span>
             </component>
           </nav>
@@ -60,6 +61,13 @@ import Button from "primevue/button";
 import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
 
+import SimpleIconsMastodon from '~icons/simple-icons/mastodon'
+import SimpleIconsBluesky from '~icons/simple-icons/bluesky'
+import SimpleIconsDiscord from '~icons/simple-icons/discord'
+import SimpleIconsGithub from '~icons/simple-icons/github'
+import SimpleIconsX from '~icons/simple-icons/x'
+import SimpleIconsGmail from '~icons/simple-icons/gmail'
+
 const menuItems = ref([
   { label: "Home", icon: "pi pi-home", to: { name: "Home" } },
   {
@@ -91,15 +99,39 @@ const menuItems = ref([
   },
   {
     label: "Github",
-    icon: "pi pi-github",
+    icon: SimpleIconsGithub,
     to: "//github.com/CynToolkit/pipelab",
     external: true,
     disabled: false,
     iconOnly: true,
   },
   {
+    label: "X",
+    icon: SimpleIconsX,
+    to: "//x.com/pipelabapp",
+    external: true,
+    disabled: false,
+    iconOnly: true,
+  },
+  {
+    label: "Mastodon",
+    icon: SimpleIconsMastodon,
+    to: "//mastodon.gamedev.place/@pipelab",
+    external: true,
+    disabled: false,
+    iconOnly: true,
+  },
+  {
+    label: "Bluesky",
+    icon: SimpleIconsBluesky,
+    to: "//bsky.app/profile/pipelab.bsky.social",
+    external: true,
+    disabled: false,
+    iconOnly: true,
+  },
+  {
     label: "Discord",
-    icon: "pi pi-discord",
+    icon: SimpleIconsDiscord,
     to: "//discord.gg/MzNw26cBb5",
     external: true,
     disabled: false,
@@ -108,9 +140,10 @@ const menuItems = ref([
 
   {
     label: "Contact",
-    icon: "pi pi-envelope",
-    to: { name: "Contact" },
-    disabled: true,
+    icon: SimpleIconsGmail,
+    to: "mailto:contact@pipelab.app",
+    external: true,
+    disabled: false,
     iconOnly: true,
   },
 ]);
