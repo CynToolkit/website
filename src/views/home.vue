@@ -68,6 +68,9 @@
                 iconPos="left"
               ></Button> -->
             </div>
+            <div class="video">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/akMziFN6PFA?si=RCAfSgOMLtBoj_jF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
           </div>
         </div>
       </div>
@@ -443,6 +446,13 @@ const interval = setInterval(() => {
 }
 
 .hero-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video {
+  margin-top: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
