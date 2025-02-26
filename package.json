@@ -11,16 +11,19 @@
     "test:unit": "vitest",
     "test:e2e": "playwright test",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build --force"
+    "type-check": "vue-tsc --build --force",
+    "supa:types": "supabase gen types typescript --project-id uehmyyeqheqnxmzhctcd --schema public > src/database.types.ts"
   },
   "dependencies": {
     "@primevue/themes": "^4.1.1",
+    "@supabase/supabase-js": "^2.49.1",
     "@vueuse/core": "^11.1.0",
     "date-fns": "^4.1.0",
     "pinia": "^2.2.4",
     "primeflex": "^3.3.1",
     "primeicons": "^7.0.0",
     "primevue": "^4.1.1",
+    "supabase": "^2.15.8",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5"
   },
