@@ -15,17 +15,28 @@ const router = createRouter({
           component: () => import('../views/home.vue')
         },
         {
-          path: '/download',
+          path: 'download',
           name: 'Download',
           component: () => import('../views/download.vue')
         },
         {
-          path: '/contact',
+          path: 'contact',
           name: 'Contact',
           component: () => import('../views/download.vue')
-        }
+        },
       ]
     },
+    {
+      path: '/auth',
+      name: 'Authentication',
+      children: [
+        {
+          path: "auth-success",
+          name: "AuthenticationSuccess",
+          component: () => import("../views/auth/auth-success.vue")
+        }
+      ]
+    }
   ],
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
