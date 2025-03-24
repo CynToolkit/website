@@ -1,7 +1,10 @@
 <template>
   <div class="page">
     <div class="confetti">
-      <ConfettiExplosion :force="0.9" v-if="showConfetti" />
+      <ConfettiExplosion
+        :force="0.9"
+        v-if="showConfetti"
+      />
     </div>
 
     <div class="verification-container">
@@ -63,14 +66,27 @@ onMounted(async () => {
     .find(param => param.startsWith('refresh_token='))
     ?.split('=')[1]
 
-  if (!accessToken) {
+  const error_ = hashParams
+    .find(param => param.startsWith('error='))
+    ?.split('=')[1]
+
+  const error_code = hashParams
+    .find(param => param.startsWith('error_code='))
+    ?.split('=')[1]
+
+  const error_description = hashParams
+    .find(param => param.startsWith('error_description='))
+    ?.split('=')[1]
+
+  if (error_ || !accessToken ||!refreshToken) {
+    if (error_description) {
+      errorMessage.value = error_description
+    } else if (!accessToken) {
+      errorMessage.value = 'Missing access token'
+    } else if (!refreshToken) {
+      errorMessage.value = 'Missing refresh token'
+    }
     currentState.value = 'error'
-    errorMessage.value = 'Missing access token'
-    return
-  }
-  if (!refreshToken) {
-    currentState.value = 'error'
-    errorMessage.value = 'Missing refresh token'
     return
   }
 
