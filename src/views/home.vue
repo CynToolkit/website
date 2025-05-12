@@ -104,6 +104,8 @@
       </div>
     </section>
 
+    <TestimonialSection />
+
     <section class="pricing" id="pricing">
       <div class="container">
         <h2 class="section-title text-center mb-5 fade-in">Pricing</h2>
@@ -191,6 +193,7 @@ import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
 import CircleConfirm from "@/components/CircleConfirm.vue";
 import AnimatedArrow from "@/components/AnimatedArrow.vue";
+import TestimonialSection from "@/components/TestimonialSection.vue";
 
 interface Feature {
   name: string;
