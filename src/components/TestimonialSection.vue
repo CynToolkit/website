@@ -1,14 +1,30 @@
 <template>
   <section class="testimonials" id="testimonials">
     <div class="container">
-      <h2 class="section-title text-center mb-5 fade-in">What Developers Say</h2>
+      <div class="testimonial-header">
+        <h2 class="testimonial-title">Testimonial Section</h2>
+      </div>
       <div class="testimonial-list">
-        <div class="testimonial-card fade-in" v-for="testimonial in testimonials" :key="testimonial.author">
-          <p class="testimonial-quote">“{{ testimonial.quote }}”</p>
-          <div class="testimonial-author">
-            <a :href="testimonial.authorLink" target="_blank" rel="noopener" class="testimonial-name">{{ testimonial.author }}</a>
-            <a :href="testimonial.link" v-if="testimonial.company" target="_blank" rel="noopener" class="testimonial-company">{{ (testimonial.author ? ', ' : '') + testimonial.company }}</a>
-            <a v-if="testimonial.link" :href="testimonial.link" target="_blank" rel="noopener" class="testimonial-link">🔗</a>
+        <div class="testimonial-card" v-for="(testimonial, i) in testimonials" :key="testimonial.name">
+          <div class="testimonial-card-text">{{ testimonial.text }}</div>
+          <div class="testimonial-card-footer">
+            <img :src="testimonial.avatar" class="testimonial-avatar" alt="Avatar" />
+            <div class="testimonial-meta">
+              <div class="testimonial-name">
+                <a v-if="testimonial.authorLink" :href="testimonial.authorLink" target="_blank">
+                  {{ testimonial.name }}
+                  <svg class="link-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20" fill="none"><path d="M7.5 12.5L12.5 7.5M12.5 7.5H8.75M12.5 7.5V11.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <span v-else>{{ testimonial.name }}</span>
+              </div>
+              <div class="testimonial-role" v-if="testimonial.game">
+                <a v-if="testimonial.gameLink" :href="testimonial.gameLink" target="_blank">
+                  {{ testimonial.game }}
+                  <svg class="link-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20" fill="none"><path d="M7.5 12.5L12.5 7.5M12.5 7.5H8.75M12.5 7.5V11.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <span v-else>{{ testimonial.game }}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -17,20 +33,42 @@
 </template>
 
 <script setup lang="ts">
+type Testimonial = {
+  text: string;
+
+  // author
+  avatar: string;
+  name: string;
+  authorLink: string;
+
+  // game
+  game?: string;
+  gameLink?: string;
+}
+
 const testimonials = [
   {
-    quote: `Pipelab has made it super easy to quickly iterate and spread builds of DeadWire to the rest of the team. After setting it up the one click electron export and upload to steam can’t be beaten.`,
-    author: 'Shotgun Anaconda',
+    text: `Pipelab has made it super easy to quickly iterate and spread builds of DeadWire to the rest of the team. After setting it up the one click electron export and upload to steam can't be beaten.`,
+    avatar: 'https://pbs.twimg.com/profile_images/1826348478538121217/03C89MFj_400x400.jpg',
+    name: 'Shotgun Anaconda',
     authorLink: 'https://x.com/shotgunanaconda',
-    company: 'DeadWire',
-    link: 'https://store.steampowered.com/app/2995100/DeadWire/'
+    game: 'DeadWire',
+    gameLink: 'https://store.steampowered.com/app/2995100/DeadWire/'
   },
   {
-    quote: `Pipelab is amazing. If you're a serious game developer, it has everything you need to automate your deploying process into multiple platforms, and it's all seamless.`,
-    // author: 'Yin',
-    company: 'Asteristic Game Studio',
-    link: 'https://asteristic.com/'
-  }
+    text: `Pipelab is an exceptional tool for indie developers, offering a rich set of features that streamline game development workflows. It's especially invaluable for games made with Construct 3, providing the most efficient and reliable solution for exporting games to Steam. The level of support is outstanding—responsive, helpful, and genuinely invested in your success.`,
+    avatar: 'https://pbs.twimg.com/profile_images/1357660425161232390/v5D3MO2F_400x400.png',
+    name: 'overboy',
+    authorLink: 'https://x.com/OverboyYT',
+    game: 'Noobs Are Coming',
+    gameLink: 'https://store.steampowered.com/app/2225960/Noobs_Are_Coming/'
+  },
+  {
+    text: `Pipelab is amazing. If you're a serious game developer, it has everything you need to automate your deploying process into multiple platforms, and it's all seamless.`,
+    avatar: 'https://pbs.twimg.com/profile_images/1360251144136765443/AqibScvm_400x400.jpg',
+    name: 'Asteristic Game Studio',
+    authorLink: 'https://asteristic.com/',
+  },
 ];
 </script>
 
@@ -39,54 +77,132 @@ const testimonials = [
   background: #f9f9fb;
   padding: 4rem 0 3rem 0;
 }
-.section-title {
-  font-size: 2.2rem;
-  color: var(--text-color);
+
+.testimonials a {
+  color: inherit;
+  text-decoration: none;
+}
+.link-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0;
+  font-size: 1em;
+  width: 1em;
+  height: 1em;
+  stroke: currentColor;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+.testimonials a:hover .link-icon {
+  opacity: 1;
+}
+
+
+.testimonial-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
   margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.testimonial-tagline {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  color: #222;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+.testimonial-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #14082d;
+  margin: 0 0 0.5rem 0;
+  flex: 1 1 100%;
+  text-align: center;
+}
+.testimonial-nav {
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+}
+.arrow-btn {
+  background: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(20,8,45,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #14082d;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.arrow-btn.active, .arrow-btn:hover {
+  background: #14082d;
+  color: #fff;
 }
 .testimonial-list {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   gap: 2rem;
   justify-content: center;
 }
 .testimonial-card {
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 3px 16px rgba(0,0,0,0.07);
-  padding: 2rem 2.5rem;
-  max-width: 420px;
+  border-radius: 18px;
+  box-shadow: 0 6px 32px rgba(20,8,45,0.07);
+  padding: 2.2rem 2rem 1.5rem 2rem;
+  max-width: 350px;
   min-width: 260px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1.5rem;
+  transition: box-shadow 0.2s;
+  margin-bottom: 0;
 }
-.testimonial-quote {
-  font-size: 1.1rem;
-  font-style: italic;
-  color: #333;
-  margin-bottom: 1.2rem;
+.testimonial-card-title {
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: #14082d;
+  margin-bottom: 1rem;
 }
-.testimonial-author {
-  font-weight: bold;
-  color: #1f2937;
-  font-size: 1rem;
+.testimonial-card-text {
+  font-size: 1.01rem;
+  color: #444;
+  margin-bottom: 1.7rem;
+  min-height: 46px;
+}
+.testimonial-card-footer {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.85rem;
 }
-.testimonial-company {
-  color: #666;
-  font-weight: normal;
+.testimonial-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #f0f0f0;
 }
-.testimonial-link {
-  /* margin-left: 0.4rem; */
-  color: var(--primary-color);
-  font-size: 0.rem;
-  text-decoration: none;
+.testimonial-meta {
+  display: flex;
+  flex-direction: column;
 }
-@media (max-width: 768px) {
+.testimonial-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #14082d;
+}
+.testimonial-role {
+  font-size: 0.93rem;
+  color: #14082d;
+}
+@media (max-width: 900px) {
   .testimonial-list {
     flex-direction: column;
     align-items: center;
@@ -94,6 +210,11 @@ const testimonials = [
   .testimonial-card {
     max-width: 95vw;
     padding: 1.2rem 1rem;
+  }
+  .testimonial-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
 }
 </style>
