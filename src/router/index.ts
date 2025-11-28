@@ -27,6 +27,11 @@ const router = createRouter({
       ]
     },
     {
+      path: '/construct3',
+      name: 'Construct3',
+      component: () => import('../views/construct3.vue')
+    },
+    {
       path: '/auth',
       name: 'Authentication',
       children: [

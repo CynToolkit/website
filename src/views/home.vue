@@ -61,6 +61,12 @@
                 iconPos="right"
                 :to="{ name: 'Download' }"
               ></Button>
+              <Button
+                as="router-link"
+                label="For Construct 3 Users"
+                class="p-button-lg p-button-secondary p-button-outlined ml-3 primary-btn"
+                :to="{ name: 'Construct3' }"
+              ></Button>
               <!-- <Button
                 label="Watch Demo"
                 class="p-button-lg p-button-outlined ml-3 primary-btn"
@@ -69,7 +75,16 @@
               ></Button> -->
             </div>
             <div class="video">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/akMziFN6PFA?si=RCAfSgOMLtBoj_jF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/akMziFN6PFA?si=RCAfSgOMLtBoj_jF"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
             </div>
           </div>
         </div>
@@ -139,8 +154,7 @@
                     v-else
                   >
                     Choose Plan
-                  </Button
-                  >
+                  </Button>
                 </div>
               </div>
               <ul class="features">
@@ -707,10 +721,10 @@ const interval = setInterval(() => {
     display: none;
   }
 
-//   .tiers {
-//     flex-direction: column;
-//     justify-content: center;
-//   }
+  //   .tiers {
+  //     flex-direction: column;
+  //     justify-content: center;
+  //   }
 }
 
 .red {

@@ -5,7 +5,12 @@
         <div class="flex align-items-center justify-content-between py-3">
           <div class="logo">
             <RouterLink class="nav-link-logo" :to="{ name: 'Home' }">
-              <img height="48" src="/banner.png" alt="Pipelab" class="logo-img" />
+              <img
+                height="48"
+                src="/banner.png"
+                alt="Pipelab"
+                class="logo-img"
+              />
             </RouterLink>
           </div>
           <nav class="hidden lg:flex">
@@ -29,7 +34,7 @@
           <Button
             icon="pi pi-bars"
             @click="toggleMobileMenu"
-            class="p-button-text lg:hidden"
+            class="primary-btn lg:hidden"
           />
         </div>
       </div>
@@ -61,12 +66,12 @@ import Button from "primevue/button";
 import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
 
-import SimpleIconsMastodon from '~icons/simple-icons/mastodon'
-import SimpleIconsBluesky from '~icons/simple-icons/bluesky'
-import SimpleIconsDiscord from '~icons/simple-icons/discord'
-import SimpleIconsGithub from '~icons/simple-icons/github'
-import SimpleIconsX from '~icons/simple-icons/x'
-import SimpleIconsGmail from '~icons/simple-icons/gmail'
+import SimpleIconsMastodon from "~icons/simple-icons/mastodon";
+import SimpleIconsBluesky from "~icons/simple-icons/bluesky";
+import SimpleIconsDiscord from "~icons/simple-icons/discord";
+import SimpleIconsGithub from "~icons/simple-icons/github";
+import SimpleIconsX from "~icons/simple-icons/x";
+import SimpleIconsGmail from "~icons/simple-icons/gmail";
 
 const menuItems = ref([
   { label: "Home", icon: "pi pi-home", to: { name: "Home" } },
@@ -80,7 +85,6 @@ const menuItems = ref([
     icon: "pi pi-dollar",
     to: { name: "Home", hash: "#pricing" },
   },
-
   { label: "Download", icon: "pi pi-download", to: { name: "Download" } },
 
   {
@@ -160,6 +164,27 @@ const closeMobileMenu = () => {
 </script>
 
 <style lang="scss" scoped>
+.primary-btn {
+  text-decoration: none;
+}
+
+.primary-btn:not(.p-button-outlined) {
+  background: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.primary-btn.p-button-outlined {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+
+  &:hover {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    background: var(--primary-color_hover) !important;
+  }
+}
+
 .header {
   background-color: var(--surface-card);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
