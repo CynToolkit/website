@@ -1,6 +1,7 @@
 <template>
   <div>
     <section class="hero">
+      <div class="hero-background"></div>
       <div class="container">
         <div class="grid hero-grid">
           <div class="col-12">
@@ -17,37 +18,51 @@
                     Design custom workflows to compress assets, package for
                     multiple platforms, deploy to Steam or itch.io and more.
                   </div>
-                  <div class="">
-                    Streamline your path from editor to player, so you can focus
-                    more on creating amazing games.
+                </div>
+                <div class="trusted-by fade-in-delay">
+                  <span class="trusted-by-text">Trusted by</span>
+                  <div class="trusted-by-avatars">
+                    <img
+                      v-for="testimonial in testimonials"
+                      :key="testimonial.name"
+                      :src="testimonial.avatar"
+                      :alt="testimonial.name + ' avatar'"
+                      class="trusted-by-avatar"
+                      :title="testimonial.name"
+                    />
                   </div>
                 </div>
               </div>
               <div class="hero-animation">
                 <div class="node" ref="$firstNode">
+                  <MdiImageSizeSelectActual
+                    class="icon left-icon"
+                  ></MdiImageSizeSelectActual>
                   <div class="title">Compress images</div>
                   <CircleConfirm
                     color="green"
                     ref="$firstIcon"
-                    class="icon"
+                    class="icon right-icon"
                   ></CircleConfirm>
                 </div>
                 <AnimatedArrow ref="$arrow1" />
                 <div class="node" ref="$secondNode">
+                  <MdiPackage class="icon left-icon"></MdiPackage>
                   <div class="title">Package for desktop</div>
                   <CircleConfirm
                     color="green"
                     ref="$secondIcon"
-                    class="icon"
+                    class="icon right-icon"
                   ></CircleConfirm>
                 </div>
                 <AnimatedArrow ref="$arrow2" />
                 <div class="node" ref="$thirdNode">
+                  <SimpleIconsSteam class="icon left-icon"></SimpleIconsSteam>
                   <div class="title">Upload to Steam</div>
                   <CircleConfirm
                     color="green"
                     ref="$thirdIcon"
-                    class="icon"
+                    class="icon right-icon"
                   ></CircleConfirm>
                 </div>
               </div>
@@ -56,7 +71,7 @@
               <Button
                 as="router-link"
                 label="Download now"
-                class="p-button-lg primary-btn"
+                class="p-button-lg primary-btn cta-primary"
                 icon="pi pi-arrow-right"
                 iconPos="right"
                 :to="{ name: 'Download' }"
@@ -64,7 +79,7 @@
               <Button
                 as="router-link"
                 label="For Construct 3 Users"
-                class="p-button-lg p-button-secondary p-button-outlined ml-3 primary-btn"
+                class="p-button-lg p-button-secondary p-button-outlined ml-3 primary-btn cta-secondary"
                 :to="{ name: 'Construct3' }"
               ></Button>
               <!-- <Button
@@ -208,6 +223,22 @@ import "primeicons/primeicons.css";
 import CircleConfirm from "@/components/CircleConfirm.vue";
 import AnimatedArrow from "@/components/AnimatedArrow.vue";
 import TestimonialSection from "@/components/TestimonialSection.vue";
+import { testimonials } from "@/data/testimonials";
+import PlatformBadge from "@/components/PlatformBadge.vue";
+// @ts-ignore - Iconify icons don't have TypeScript declarations
+import SimpleIconsSteam from "~icons/simple-icons/steam";
+// @ts-ignore - Iconify icons don't have TypeScript declarations
+import SimpleIconsWindows from "~icons/simple-icons/windows";
+// @ts-ignore - Iconify icons don't have TypeScript declarations
+import SimpleIconsApple from "~icons/simple-icons/apple";
+// @ts-ignore - Iconify icons don't have TypeScript declarations
+import SimpleIconsLinux from "~icons/simple-icons/linux";
+// @ts-ignore - Iconify icons don't have TypeScript declarations
+import SimpleIconsItchdotio from "~icons/simple-icons/itchdotio";
+// @ts-ignore - Iconify icons don't have TypeScript declarations
+import MdiImageSizeSelectActual from "~icons/mdi/image-size-select-actual";
+// @ts-ignore - Iconify icons don't have TypeScript declarations
+import MdiPackage from "~icons/mdi/package";
 
 interface Feature {
   name: string;
@@ -415,6 +446,41 @@ const interval = setInterval(() => {
   text-decoration: none;
 }
 
+.cta-primary {
+  background: linear-gradient(135deg, var(--primary-color), #6a11cb) !important;
+  border: none !important;
+  box-shadow: 0 8px 25px -5px rgba(106, 17, 203, 0.3),
+    0 8px 10px -6px rgba(106, 17, 203, 0.2) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  transform: translateY(0);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px -5px rgba(106, 17, 203, 0.4),
+      0 12px 15px -6px rgba(106, 17, 203, 0.3) !important;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.cta-secondary {
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+
+  &:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(106, 17, 203, 0.1),
+      rgba(106, 17, 203, 0.05)
+    ) !important;
+    border-color: var(--primary-color) !important;
+    transform: translateY(-1px);
+  }
+}
+
 .primary-btn:not(.p-button-outlined) {
   background: var(--primary-color) !important;
   border-color: var(--primary-color) !important;
@@ -433,8 +499,39 @@ const interval = setInterval(() => {
 }
 
 .hero {
-  background-color: var(--surface-ground);
-  padding: 4rem 0;
+  background: linear-gradient(
+    135deg,
+    var(--surface-ground) 0%,
+    rgba(245, 245, 250, 1) 100%
+  );
+  padding: 6rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+      circle at 20% 50%,
+      rgba(106, 17, 203, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(106, 17, 203, 0.03) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 80%,
+      rgba(106, 17, 203, 0.02) 0%,
+      transparent 50%
+    );
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .hero-grid {
@@ -444,17 +541,29 @@ const interval = setInterval(() => {
 .hero-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
 }
 
 .hero-title {
   font-size: 3.5rem;
-  font-weight: 700;
+  font-weight: 800;
   margin: 0;
   line-height: 1.2;
   color: var(--text-color);
   text-align: center;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 2;
+
+  .gradient-text {
+    background: linear-gradient(135deg, var(--primary-color), #6a11cb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+  }
 
   .accent {
     color: var(--primary-color);
@@ -475,10 +584,106 @@ const interval = setInterval(() => {
   justify-content: center;
 }
 
+.video iframe {
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
 .hero-description {
   font-size: 1.25rem;
   margin-top: 1.5rem;
   margin-bottom: 2rem;
+}
+
+.platform-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.platform-icon {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  transition: all 0.3s ease;
+  opacity: 0.8;
+  padding: 8px;
+  background: rgba(106, 17, 203, 0.05);
+  border-radius: 50%;
+
+  &:hover {
+    transform: translateY(-5px) scale(1.2);
+    opacity: 1;
+    color: #6a11cb;
+    box-shadow: 0 8px 15px rgba(106, 17, 203, 0.2);
+  }
+}
+
+.windows-icon {
+  animation: platformIconEntrance 0.6s ease-out 0.1s both;
+}
+.apple-icon {
+  animation: platformIconEntrance 0.6s ease-out 0.2s both;
+}
+.linux-icon {
+  animation: platformIconEntrance 0.6s ease-out 0.3s both;
+}
+.steam-icon {
+  animation: platformIconEntrance 0.6s ease-out 0.4s both;
+}
+.itch-icon {
+  animation: platformIconEntrance 0.6s ease-out 0.5s both;
+}
+
+.trusted-by {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.trusted-by-text {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.trusted-by-avatars {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.trusted-by-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.trusted-by-avatar:hover {
+  transform: scale(1.1);
+  z-index: 1;
+}
+
+.hero-description .platform-badge {
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  margin: 0 3px;
+}
+
+.platform-badge-wrapper {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 2px;
 }
 
 .hero-image img {
@@ -491,11 +696,11 @@ const interval = setInterval(() => {
 .container {
   max-width: 1300px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0.5rem 1rem;
 
-  @media (min-width: 640px) {
-    padding: 0 2rem;
-  }
+  // @media (min-width: 640px) {
+  //   padding: 0 2rem;
+  // }
 }
 
 .features {
@@ -641,6 +846,17 @@ const interval = setInterval(() => {
   }
 }
 
+@keyframes platformIconEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .node {
   border-radius: 8px;
   padding: 1rem;
@@ -650,7 +866,7 @@ const interval = setInterval(() => {
   justify-content: space-between;
   transition: transform 0.3s ease;
   border: 1px solid #1f2937;
-  width: 300px;
+  width: 350px;
   height: 100%;
   transform: translateX(50px);
   opacity: 0;
@@ -669,11 +885,21 @@ const interval = setInterval(() => {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex: 1;
   }
 
   .icon {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin-right: 0.5rem;
+    margin-left: 0.5rem;
+  }
+
+  .left-icon {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+  }
+
+  .right-icon {
     margin-left: 0.5rem;
   }
 }
