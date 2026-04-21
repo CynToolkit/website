@@ -56,7 +56,53 @@
         {{ item.label }}
       </component>
     </div>
-    <RouterView></RouterView>
+    <main class="main-content">
+      <RouterView></RouterView>
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <div class="grid py-6">
+          <div class="col-12 md:col-4">
+            <div class="footer-brand">
+              <img
+                height="32"
+                src="/banner.png"
+                alt="Pipelab"
+                class="mb-3"
+              />
+              <p class="text-sm opacity-70">
+                The visual automation tool for game developers.
+              </p>
+              <p class="text-sm opacity-50 mt-4">
+                © 2026 Pipelab. All rights reserved.
+              </p>
+            </div>
+          </div>
+          <div class="col-6 md:col-4">
+            <h4 class="footer-title mb-4">Legal</h4>
+            <ul class="list-none p-0 m-0">
+              <li class="mb-2">
+                <RouterLink :to="{ name: 'Privacy' }" class="footer-link">Privacy Policy</RouterLink>
+              </li>
+              <li class="mb-2">
+                <RouterLink :to="{ name: 'Terms' }" class="footer-link">Terms of Service</RouterLink>
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 md:col-4">
+            <h4 class="footer-title mb-4">Support</h4>
+            <ul class="list-none p-0 m-0">
+              <li class="mb-2">
+                <a href="mailto:contact@pipelab.app" class="footer-link">Contact Us</a>
+              </li>
+              <li class="mb-2">
+                <a href="//discord.gg/MzNw26cBb5" target="_blank" rel="noopener" class="footer-link">Community Discord</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -269,6 +315,45 @@ const closeMobileMenu = () => {
 a[disabled="true"] {
   color: #666;
   pointer-events: none;
+}
+
+.main-content {
+  min-height: 60vh;
+}
+
+.footer {
+  background-color: var(--surface-section);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 2rem 0;
+  color: var(--text-color);
+}
+
+.footer-title {
+  font-weight: 700;
+  color: var(--text-color);
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+}
+
+.footer-link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+  opacity: 0.8;
+
+  &:hover {
+    color: var(--primary-color);
+    opacity: 1;
+  }
+}
+
+.footer-brand {
+  p {
+    margin: 0;
+    line-height: 1.5;
+  }
 }
 </style>
 
